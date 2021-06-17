@@ -279,18 +279,19 @@ function buscarTU() {
   var select = document.getElementById("selectT1");
   var encontrado = false;
   var permisos1 = []
-  var ListaPermisos = ["especificar tipos de usuarios",
-        "registro de nuevos usuarios",
-        "Montaje de pedidos",
-        "Registro de pagos",
-        "generación de facturas",
-        "ingreso de productos",
-        "Gestión de bodega e inventarios",
-        "Ingresar compras",
-        "vender",
-        "Registro de clientes",
-        "Administración de clientes",
-        "Realizar devoluciones"
+  var ListaPermisos = ["Gestión de proveedores",
+  "Gestión de usuarios",
+  "Registrar nuevos usuarios",
+  "Gestión de productos",
+  "Gestionar las ventas",
+  "Hacer ventas",
+  "Registro de clientes globales",
+  "Realizar devoluciones",
+  "Gestión contable",
+  "Ver el inventario global",
+  "Registrar clientes propios",
+  "Calcular nómina",
+  "Registrar factura de compra"
 ];
 
   db.collection("tiposUsuario")
@@ -379,6 +380,9 @@ function guardarTipoDeUsuario() {
       permisos[9] = document.getElementById("permiso10").checked;
       permisos[10] = document.getElementById("permiso11").checked;
       permisos[11] = document.getElementById("permiso12").checked;
+      permisos[12] = document.getElementById("permiso13").checked;
+      
+      
       var usuario = document.getElementById("NombreUsuario").value;
       var sugerencia = document.getElementById("sugerencia");
       var aviso = document.getElementById("aviso");
@@ -394,47 +398,53 @@ function guardarTipoDeUsuario() {
         Swal.fire('Guardado!', '', 'success');
         var tabTwo = document.getElementById("tabTwo");
         tabTwo.innerHTML = `<input class="form-control" type="text" id="NombreUsuario" placeholder="ingrese el tipo de usuario*">
-       <br>
-       <input  type="checkbox" id="permiso1">
-       <label  for="permiso1">especificar tipos de usuarios</label>
-       <br>
-       <input  type="checkbox" id="permiso2">
-       <label  for="permiso2">registro de nuevos usuarios</label>
-       <br>
-       <input  type="checkbox" id="permiso3">
-       <label  for="permiso3">Montaje de pedidos</label>
-       <br>
-       <input  type="checkbox" id="permiso4">
-       <label  for="permiso4">Registro de pagos</label>
-       <br>
-       <input  type="checkbox" id="permiso5">
-       <label  for="permiso5">generación de facturas</label>
-       <br>
-       <input  type="checkbox" id="permiso6">
-       <label  for="permiso6">ingreso de productos</label>
-       <br>
-       <input  type="checkbox" id="permiso7">
-       <label  for="permiso7">Gestión de bodega e inventarios</label>
-       <br>
-       <input  type="checkbox" id="permiso8">
-       <label  for="permiso8">Ingresar compras</label>
-       <br>
-       <input  type="checkbox" id="permiso9">
-       <label  for="permiso9">vender</label>
-       <br>
-       <input  type="checkbox" id="permiso10">
-       <label  for="permiso10">Registro de clientes</label>
-       <br>
-       <input  type="checkbox" id="permiso11">
-       <label  for="permiso11">Administración de clientes</label>
-       <br>
-      
-       <button class="btn btn-success" onclick="guardarTipoDeUsuario()">Guardar</button>
-       <br><br>
-       <div id="sugerencia">
-      </div>
-      <div id="aviso">
-      </div>`;
+        <br>
+        <input  type="checkbox" id="permiso1">
+        <label  for="permiso1">Gestión de proveedores</label>
+        <br>
+        <input  type="checkbox" id="permiso2">
+        <label  for="permiso2">Gestión de usuarios</label>
+        <br>
+        <input  type="checkbox" id="permiso3">
+        <label  for="permiso3">Registrar nuevos usuarios</label>
+        <br>
+        <input  type="checkbox" id="permiso4">
+        <label  for="permiso4">Gestión de productos</label>
+        <br>
+        <input  type="checkbox" id="permiso5">
+        <label  for="permiso5">Gestionar las ventas</label>
+        <br>
+        <input  type="checkbox" id="permiso6">
+        <label  for="permiso6">Hacer ventas</label>
+        <br>
+        <input  type="checkbox" id="permiso7">
+        <label  for="permiso7">Registro de clientes globales</label>
+        <br>
+        <input  type="checkbox" id="permiso8">
+        <label  for="permiso8">Realizar devoluciones</label>
+        <br>
+        <input  type="checkbox" id="permiso9">
+        <label  for="permiso9">Gestión contable</label>
+        <br>
+        <input  type="checkbox" id="permiso10">
+        <label  for="permiso10">Ver el inventario global</label>
+        <br>
+        <input  type="checkbox" id="permiso11">
+        <label  for="permiso11">Registrar clientes propios</label>
+        <br>
+        <input  type="checkbox" id="permiso12">
+        <label  for="permiso12">Calcular nómina</label>
+        <br>
+        <input  type="checkbox" id="permiso13">
+        <label  for="permiso13">Registrar factura de compra</label>
+        <br>
+        
+        <button class="btn btn-success" onclick="guardarTipoDeUsuario()">Guardar</button>
+        <br><br>
+        <div id="sugerencia">
+       </div>
+       <div id="aviso">
+       </div>`;
 
         buscarTU();
 
@@ -520,11 +530,12 @@ function eliminarTipoDeUsuario(Tusuario) {
 
 }
 function listaDeUsuarios() {
+  toggle();
   var feed = document.getElementById("main");
   var login = document.getElementById("login-page");
   login.innerHTML = "";
   feed.innerHTML = ``;
-  feed.innerHTML = `<br><h3>Lista de usuarios:</h3><br><div class="overflow-auto"><table id="tabla2" class="table table-striped table-bordered">
+  feed.innerHTML = `<br><h3>Lista de usuarios:</h3><br><div class="delimitado"><table id="tabla2" class="table table-striped table-bordered">
     <thead>
       <tr>
         <th>Nombre</th>
@@ -608,11 +619,11 @@ function Editar(element) {
         }
         feed.innerHTML += `<div class="col-md-8"><form class="form-gruop">
         <br>
-        <input class="form-control " type="text" id="nombreP" value=${nombreP}>
+        <input class="form-control " type="text" id="nombreP" placeholder="Nombre" value="${nombreP}">
         <br>
-        <input class="form-control " type="text" id="apellidoP" value=${apellidoP}>
+        <input class="form-control " type="text" id="apellidoP" placeholder="apellido" value="${apellidoP}">
         <br>
-        <input class="form-control " type="number" id="apellidoP" value=${cuota}>
+        <input class="form-control " type="number" id="cuota0" placeholder="cuota" value="${cuota}">
         <br>
         <select class="form-control" id="tipoDeUsuario">
           <option value="">seleccione el tipo de usuario</option>
@@ -660,7 +671,9 @@ function GuardarCambios(element){
         nombre=document.getElementById("nombreP").value;
         tipoDeUsuario=document.getElementById("tipoDeUsuario").value;
         uid=datos.uid;
-        cuota=datos.cuota;
+        cuota=document.getElementById("cuota0").value;
+        cuota=parseInt(cuota,10);
+        console.log(nombre, apellido, email, tipoDeUsuario, uid, cuota);
         if(apellido!=""&&nombre!=""&&tipoDeUsuario!=""){
           db.collection("usuarios").doc(uid).set({
             apellido,
@@ -713,26 +726,31 @@ function recuperarContraseña(element){
 }
 cargarFunciones();
 function cargarFunciones(){
+  try {
+    var user = firebase.auth().currentUser;
   
-  var user = firebase.auth().currentUser;
-  firebase.auth().onAuthStateChanged((user) => {
-    console.log(user.uid);
-    db.collection("usuarios").where("uid","==",user.uid).get().then((querySnapshot)=>{
-      querySnapshot.forEach((doc)=>{
-          datos=doc.data();
-          console.log("entró");
-          
-          tipoDeUsuario=datos.tipoDeUsuario;
-          db.collection("tiposUsuario").where("usuario","==",tipoDeUsuario).get().then((querySnapshot)=>{
-            querySnapshot.forEach((doc)=>{
-              datos2=doc.data();
-              permisos=datos2.permisos;
-              menuInicio(permisos);
-            })
-          });
-          
+    firebase.auth().onAuthStateChanged((user) => {
+    
+      db.collection("usuarios").where("uid","==",user.uid).get().then((querySnapshot)=>{
+        querySnapshot.forEach((doc)=>{
+            datos=doc.data();
+            tipoDeUsuario=datos.tipoDeUsuario;
+            db.collection("tiposUsuario").where("usuario","==",tipoDeUsuario).get().then((querySnapshot)=>{
+              querySnapshot.forEach((doc)=>{
+                datos2=doc.data();
+                permisos=datos2.permisos;
+                menuInicio(permisos);
+              })
+            });
+            
+        })
       })
     })
-  })
+  } catch (error) {
+    
+  }
+  
+  
+  
   
 }
