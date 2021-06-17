@@ -122,6 +122,7 @@ function inicio() {
 }
 
 function menuInicio(permisos) {
+    console.log("entró")
     var menu = document.getElementById("accciones");
     var validado = false;
     for (let i = 0; i < permisos.length; i++) {

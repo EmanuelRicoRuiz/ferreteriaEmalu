@@ -1,11 +1,11 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyDwEIo1vy-N1WC0EFYPZsJjjXn2PRHQAFg",
-  authDomain: "hernandezjwd.firebaseapp.com",
-  projectId: "hernandezjwd",
-  storageBucket: "hernandezjwd.appspot.com",
-  messagingSenderId: "615453878393",
-  appId: "1:615453878393:web:4b027fdb02cd191cd6cca8",
-  measurementId: "G-SJRTK7NWFZ"
+  apiKey: "AIzaSyCF_weH07cRmEMN-whxQDxuF_xaFUQUtO4",
+  authDomain: "emalu-5ef43.firebaseapp.com",
+  projectId: "emalu-5ef43",
+  storageBucket: "emalu-5ef43.appspot.com",
+  messagingSenderId: "955870360649",
+  appId: "1:955870360649:web:fec7c452bb718d97707b98",
+  measurementId: "G-0EB3CDHQ3D"
 };
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
@@ -713,12 +713,15 @@ function recuperarContraseña(element){
 }
 cargarFunciones();
 function cargarFunciones(){
+  
   var user = firebase.auth().currentUser;
   firebase.auth().onAuthStateChanged((user) => {
-    
+    console.log(user.uid);
     db.collection("usuarios").where("uid","==",user.uid).get().then((querySnapshot)=>{
       querySnapshot.forEach((doc)=>{
           datos=doc.data();
+          console.log("entró");
+          
           tipoDeUsuario=datos.tipoDeUsuario;
           db.collection("tiposUsuario").where("usuario","==",tipoDeUsuario).get().then((querySnapshot)=>{
             querySnapshot.forEach((doc)=>{
